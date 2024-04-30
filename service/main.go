@@ -2,7 +2,7 @@ package main
 
 import (
 	"log"
-	"sun-panel/global"
+	_ "sun-panel/global"
 	"sun-panel/initialize"
 	"sun-panel/router"
 )
@@ -13,9 +13,13 @@ func main() {
 		log.Println("初始化错误:", err.Error())
 		panic(err)
 	}
-	httpPort := global.Config.GetValueStringOrDefault("base", "http_port")
+	// httpPort := global.Config.GetValueStringOrDefault("base", "http_port")
 
-	if err := router.InitRouters(":" + httpPort); err != nil {
+	// if err := router.InitRouters(":" + httpPort); err != nil {
+	// 	panic(err)
+	// }
+	// Https部分
+	if err := router.InitSSLRouters(":443"); err != nil {
 		panic(err)
 	}
 }
