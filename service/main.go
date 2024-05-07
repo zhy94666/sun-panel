@@ -2,7 +2,8 @@ package main
 
 import (
 	"log"
-	_ "sun-panel/global"
+	"os"
+	"sun-panel/global"
 	"sun-panel/initialize"
 	"sun-panel/router"
 )
@@ -13,13 +14,27 @@ func main() {
 		log.Println("初始化错误:", err.Error())
 		panic(err)
 	}
-	// httpPort := global.Config.GetValueStringOrDefault("base", "http_port")
 
-	// if err := router.InitRouters(":" + httpPort); err != nil {
-	// 	panic(err)
-	// }
-	// Https部分
-	if err := router.InitSSLRouters(":443"); err != nil {
-		panic(err)
+	ssl_data, env_status := os.LookupEnv("HTTPS")
+
+	if env_status {
+		if ssl_data == "true" || ssl_data == "True"{
+			// Https部分
+			httpsPort := global.Config.GetValueStringOrDefault("base", "https_port")
+			if err := router.InitSSLRouters(":" + httpsPort); err != nil {
+				panic(err)
+			}
+		} else {
+			httpPort := global.Config.GetValueStringOrDefault("base", "http_port")
+			if err := router.InitRouters(":" + httpPort); err != nil {
+				panic(err)
+			}
+		}
+	} else {
+		httpPort := global.Config.GetValueStringOrDefault("base", "http_port")
+		if err := router.InitRouters(":" + httpPort); err != nil {
+			panic(err)
+		}
 	}
+
 }
