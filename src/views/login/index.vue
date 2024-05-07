@@ -20,8 +20,8 @@ const languageValue = ref<Language>(appStore.language)
 // const isShowRegister = ref<boolean>(false)
 
 const form = ref<Login.LoginReqest>({
-  username: '',
-  password: '',
+  username: 'admin',
+  password: '123123',
 })
 
 const loginPost = async () => {

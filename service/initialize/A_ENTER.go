@@ -133,8 +133,8 @@ func CommandRun() {
 		pwd bool
 	)
 
-	flag.BoolVar(&cfg, "config", false, "Generate configuration file")
-	flag.BoolVar(&pwd, "password-reset", false, "Reset the password of the first user")
+	flag.BoolVar(&cfg, "config", false, "Generate configuration file[default: false]")
+	flag.BoolVar(&pwd, "password-reset", false, "Reset the password of the first user[default: false]")
 
 	flag.Parse()
 
@@ -159,7 +159,7 @@ func CommandRun() {
 			os.Exit(0) // 务必退出
 		}
 
-		newPassword := "12345678"
+		newPassword := "123123"
 
 		updateInfo := models.User{
 			Password: cmn.PasswordEncryption(newPassword),
@@ -173,7 +173,7 @@ func CommandRun() {
 
 		fmt.Println("The password has been successfully reset. Here is the account information")
 		fmt.Println("Username ", userInfo.Username)
-		fmt.Println("Password ", newPassword)
+		fmt.Println("Password ", nsewPassword)
 		os.Exit(0) // 务必退出
 	} else {
 		return
