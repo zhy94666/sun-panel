@@ -173,7 +173,7 @@ func CommandRun() {
 
 		fmt.Println("The password has been successfully reset. Here is the account information")
 		fmt.Println("Username ", userInfo.Username)
-		fmt.Println("Password ", nsewPassword)
+		fmt.Println("Password ", newPassword)
 		os.Exit(0) // 务必退出
 	} else {
 		return
